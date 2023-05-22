@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de Lógica Difusa</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Calculadora de Lógica Difusa</h1>
+  <label for="inputA">Valor A:</label>
+  <input type="number" id="inputA" step="0.01">
+  <br>
+  <label for="inputB">Valor B:</label>
+  <input type="number" id="inputB" step="0.01">
+  <br>
+  <button onclick="calculate()">Calcular</button>
+  <br>
+  <h3>Resultado:</h3>
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      const inputA = parseFloat(document.getElementById('inputA').value);
+      const inputB = parseFloat(document.getElementById('inputB').value);
+
+      // Realiza una petición POST al backend con los valores de entrada
+      $.ajax({
+        url: '/fuzzy',
+        type: 'POST',
+        data: { inputA, inputB },
+        success: function(response) {
+          document.getElementById('result').textContent = response.result;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
